@@ -2,6 +2,10 @@
 
 Plugin for OpenRCT2 providing tools to aid development of OpenRCT2.
 
+## ✔️ Features
+* Entity Viewer - Select an entity and show it's internal properties.
+* Network Monitor - Display incoming and outgoing network traffic.
+
 ## 🚀 Installation
 1. Download the latest version of the plugin from the [Releases page](https://github.com/OpenRCT2/devtools/releases).
 
