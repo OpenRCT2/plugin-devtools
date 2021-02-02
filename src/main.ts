@@ -6,6 +6,7 @@ const main = () => {
         return;
     }
 
+    EntityViewer.register();
     NetworkMonitor.register();
 
     if (DEBUG) {
