@@ -1,0 +1,19 @@
+{
+    "name": "openrct2-devtools",
+    "version": "1.0.0",
+    "description": "Plugin for OpenRCT2 providing tools to aid development of OpenRCT2",
+    "license": "MIT",
+    "author": "OpenRCT2",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsc",
+        "minify": "uglifyjs --compress --mangle --output out/devtools.min.js -- out/devtools.js",
+        "copy": "copy out\\devtools.js \"%HOMEDRIVE%%HOMEPATH%\\Documents\\OpenRCT2\\plugin\"",
+        "watch": "tsc-watch --onSuccess \"npm run copy\""
+    },
+    "devDependencies": {
+        "tsc-watch": "^4.2.9",
+        "typescript": "^4.1.3",
+        "uglify-js": "^3.12.5"
+    }
+}

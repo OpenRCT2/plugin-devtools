@@ -1,0 +1,23 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup node.js
+      uses: actions/setup-node@v2
+    - name: Install modules
+      run: |
+          mv node_modules/@types .
+          npm install
+          mv @types node_modules
+    - name: Build
+      run: npm run build
+    - name: Minify
+      run: npm run minify
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: "OpenRCT2 DevTools"
+        path: out/devtools.min.js
