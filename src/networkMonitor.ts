@@ -230,11 +230,8 @@ namespace NetworkMonitor {
                 width: w,
                 height: h,
                 onDraw: function (g) {
-                    g.stroke = 1;
-                    g.line(0, 0, this.width - 1, 0);
-                    g.line(this.width - 1, 0, this.width - 1, this.height);
-                    g.line(0, this.height - 1, this.width - 1, this.height - 1);
-                    g.line(0, 0, 0, this.height);
+                    g.colour = this.window?.colours[1] || 0;
+                    g.well(0, 0, this.width, this.height);
                     g.clip(1, 1, this.width - 2, this.height - 2);
                     drawGraph(g, this.width - 2, this.height - 2, kind);
                 }
@@ -276,7 +273,7 @@ namespace NetworkMonitor {
                     yOffset -= lineHeight;
                     if (lineHeight > 0) {
                         g.fill = categoryGroups[n].paletteIndex;
-                        g.fillRect(x, yOffset, barWidth, lineHeight);
+                        g.rect(x, yOffset, barWidth, lineHeight);
                     }
                 }
 
