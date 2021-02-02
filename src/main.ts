@@ -7,11 +7,13 @@ const main = () => {
     }
 
     EntityViewer.register();
+    ImageList.register();
     NetworkMonitor.register();
 
     if (DEBUG) {
         ui.closeAllWindows();
-        NetworkMonitor.getOrOpen();
+        // NetworkMonitor.getOrOpen();
+        ImageList.getOrOpen();
     }
 };
 
