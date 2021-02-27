@@ -330,8 +330,10 @@ namespace NetworkMonitor {
     }
 
     export function register() {
-        ui.registerMenuItem('Network Monitor', function () {
-            getOrOpen();
-        });
+        if (DEBUG || network.mode != 'none') {
+            ui.registerMenuItem('Network Monitor', function () {
+                getOrOpen();
+            });
+        }
     }
 }
