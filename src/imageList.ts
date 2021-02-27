@@ -50,9 +50,9 @@ namespace ImageList {
                 { type: 'colourpicker', name: 'clrTernary', onChange: c => onTernaryColourChange(c), x: 16, y: 56, width: 12, height: 12 },
                 { type: 'checkbox', x: 32, y: 56, width: 100, height: 14, text: 'Blend' },
                 { type: 'label', x: 16, y: 74, width: 50, height: 14, text: 'Palette:' },
-                { type: 'spinner', name: 'spnPalette', x: 68, y: 72, width: 100, height: 14, text: '0', isHoldable: true, onDecrement: () => onDecrementPalette(), onIncrement: () => onIncrementPalette() },
+                { type: 'spinner', name: 'spnPalette', x: 68, y: 72, width: 100, height: 14, text: '0', onDecrement: () => onDecrementPalette(), onIncrement: () => onIncrementPalette() },
                 { type: 'label', x: 16, y: 92, width: 50, height: 14, text: 'Start ID:' },
-                { type: 'spinner', name: 'spnStartId', x: 68, y: 90, width: 100, height: 14, isHoldable: true, text: startId.toString(), onClick: () => onSelectId(), onDecrement: () => onDecrementId(), onIncrement: () => onIncrementId() },
+                { type: 'spinner', name: 'spnStartId', x: 68, y: 90, width: 100, height: 14, text: startId.toString(), onClick: () => onSelectId(), onDecrement: () => onDecrementId(), onIncrement: () => onIncrementId() },
                 { type: 'custom', name: 'imageList', x: 8, y: 122, width: 200, height: 100, onDraw: function (g) { onDrawImages(this, g); } }
             ],
             onUpdate: () => onUpdate()
