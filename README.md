@@ -8,7 +8,7 @@ Plugin for OpenRCT2 providing tools to aid development of OpenRCT2.
 * Network Monitor - Display incoming and outgoing network traffic.
 
 ## 🚀 Installation
-1. Download the latest version of the plugin from the [Releases page](https://github.com/OpenRCT2/devtools/releases).
+1. Download the latest version of the plugin from the [Releases page](https://github.com/OpenRCT2/plugin-devtools/releases).
 
 2. To install it, put the downloaded `*.js` file into your `/OpenRCT2/plugin` folder.
 
