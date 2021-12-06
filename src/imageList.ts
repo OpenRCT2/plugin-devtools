@@ -53,6 +53,7 @@ namespace ImageList {
                 { type: 'spinner', name: 'spnPalette', x: 68, y: 72, width: 100, height: 14, text: '0', onDecrement: () => onDecrementPalette(), onIncrement: () => onIncrementPalette() },
                 { type: 'label', x: 16, y: 92, width: 50, height: 14, text: 'Start ID:' },
                 { type: 'spinner', name: 'spnStartId', x: 68, y: 90, width: 100, height: 14, text: startId.toString(), onClick: () => onSelectId(), onDecrement: () => onDecrementId(), onIncrement: () => onIncrementId() },
+                { type: 'custom', name: 'imageChart', x: 300, y: 20, width: 1200, height: 96, onDraw: function (g) { onDrawChart(this, g); } },
                 { type: 'custom', name: 'imageList', x: 8, y: 122, width: 200, height: 100, onDraw: function (g) { onDrawImages(this, g); } }
             ],
             onUpdate: () => onUpdate()
@@ -123,6 +124,11 @@ namespace ImageList {
         }
 
         function onUpdate() {
+            const imageChart = window.findWidget<CustomWidget>('imageChart');
+            if (imageChart) {
+                imageChart.width = window.width - imageChart.x - 8;
+            }
+
             const imageList = window.findWidget<CustomWidget>('imageList');
             if (imageList) {
                 imageList.width = window.width - (imageList.x * 2);
@@ -155,6 +161,73 @@ namespace ImageList {
             if (primaryColour !== undefined) {
                 paletteSpinner.text = primaryColour.toString();
             }
+        }
+
+        function onDrawChart(widget: CustomWidget, g: GraphicsContext) {
+            const clipWidth = widget.width - 2;
+            const clipHeight = widget.height - 2;
+
+            g.colour = 1;
+            g.well(0, 0, widget.width, widget.height);
+            g.clip(1, 1, clipWidth, clipHeight);
+
+            g.fill = 61;
+            g.clear();
+
+            const allocatedRange = ui.imageManager.getPredefinedRange('allocated');
+            if (!allocatedRange)
+                return;
+
+            const end = allocatedRange.start + allocatedRange.count;
+            const indexToX = (index: number) => Math.floor((index / end) * clipWidth);
+
+            const rangeNames = ['g1', 'g2', 'csg'];
+            const colours = [60, 90, 120];
+            const ranges = rangeNames.map(x => ui.imageManager.getPredefinedRange(x));
+
+            // Range colours
+            for (let i = 0; i < rangeNames.length; i++) {
+                const range = ranges[i];
+                if (!range)
+                    continue;
+
+                const x = indexToX(range.start);
+                const width = indexToX(range.count);
+
+                g.fill = colours[i];
+                g.rect(x, 0, width, clipHeight);
+            }
+
+            // Range names
+            for (let i = 0; i < rangeNames.length; i++) {
+                const range = ranges[i];
+                if (!range)
+                    continue;
+
+                const x = indexToX(range.start);
+                const width = indexToX(range.count);
+                
+                const name = rangeNames[i];
+                const textSize = g.measureText(name);
+                g.text('{OUTLINE}{WHITE}' + name, x + ((width - textSize.width) / 2), clipHeight / 2 - 5);
+            }
+
+            // Free ranges
+            const freeRanges = ui.imageManager.getAvailableAllocationRanges();
+            for (const range of freeRanges) {
+                const x = Math.floor((range.start / end) * clipWidth);
+                const width = Math.floor((range.count / end) * clipWidth);
+
+                g.fill = 20;
+                g.rect(x, 0, width, clipHeight);
+            }
+
+            // Viewport
+            const viewX = indexToX(startId);
+            const viewSize = 8;
+            g.fill = 8;
+            g.stroke = 54;
+            g.rect(viewX - (viewSize / 2), (clipHeight / 4) - (viewSize / 2), viewSize, viewSize);
         }
 
         function onDrawImages(widget: CustomWidget, g: GraphicsContext) {
@@ -192,7 +265,12 @@ namespace ImageList {
                     lineHeight = Math.max(lineHeight, output.height);
                 }
                 id++;
+
+                // Prevent continuous loop
+                if (id > startId + 1000)
+                    break;
             }
+
             nextId = secondLineId || startId + 1;
         }
 
