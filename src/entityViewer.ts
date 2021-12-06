@@ -77,7 +77,7 @@ namespace EntityViewer {
         }
 
         function set(items: ListViewItem[]) {
-            const list = window.findWidget<ListView>("rve-debug-list");
+            const list = window.findWidget<ListViewWidget>("rve-debug-list");
             list.width = window.width - 10;
             list.height = window.height - 36;
             list.items = items;
@@ -124,9 +124,8 @@ namespace EntityViewer {
                         ["Powered acceleration:", car.poweredAcceleration.toString()],
                         ["Powered max. speed:", car.poweredMaxSpeed.toString()],
                         ["Status:", car.status.toString()],
-                        ["Peeps:", car.peeps.map(p => (p == null) ? "null" : p.toString()).toString()],
+                        ["Guests:", car.guests.map(p => (p == null) ? "null" : p.toString()).toString()],
                         ["", ""],
-                        // @ts-expect-error
                         ["Track location", `${car.trackLocation.x}, ${car.trackLocation.y}, ${car.trackLocation.z}, dir: ${car.trackLocation.direction}`],
                         ["Track progress", car.trackProgress.toString()],
                         ["Remaining distance", car.remainingDistance.toString()],
