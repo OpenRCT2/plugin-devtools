@@ -12,7 +12,8 @@
         "strictBindCallApply": true,
         "outFile": "out/devtools.js",
         "lib": [
-            "ES5"
+            "ES5",
+            "ES2015"
         ]
     }
 }

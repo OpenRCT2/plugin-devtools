@@ -1,4 +1,4 @@
-const DEBUG = false;
+const DEBUG = true;
 
 const main = () => {
     if (typeof ui === 'undefined') {
@@ -9,17 +9,19 @@ const main = () => {
     EntityViewer.register();
     ImageList.register();
     NetworkMonitor.register();
+    PerfMonitor.register();
 
     if (DEBUG) {
         ui.closeAllWindows();
         // NetworkMonitor.getOrOpen();
-        ImageList.getOrOpen();
+        // ImageList.getOrOpen();
+        PerfMonitor.getOrOpen();
     }
 };
 
 registerPlugin({
     name: 'DevTools',
-    version: '1.1',
+    version: '1.2',
     authors: ['OpenRCT2'],
     type: 'local',
     licence: 'MIT',
