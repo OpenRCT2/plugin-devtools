@@ -6,8 +6,8 @@ namespace PerfMonitor {
 
     function openPerfMonitor() {
         var intervalHandle: number;
-        var width = 500;
-        var height = 400;
+        var width = Math.min(1000, ui.width - 200);
+        var height = Math.min(600, ui.height - 200);
         var w = ui.openWindow({
             x: (ui.width - width) / 2,
             y: (ui.height - height) / 2,
@@ -50,7 +50,7 @@ namespace PerfMonitor {
                     width: 23,
                     height: 23,
                     image: 5180,
-                    isPressed: true,
+                    isPressed: profiler.isEnabled(),
                     onClick: () => {
                         let btn = w.findWidget<ButtonWidget>('btnStartStop');
                         if (btn.isPressed) {
@@ -118,6 +118,8 @@ namespace PerfMonitor {
                 tree = updateList(w);
             }
         }, 1000);
+
+        tree = updateList(w);
     }
 
     function updateList(w: Window) {
@@ -142,7 +144,7 @@ namespace PerfMonitor {
     function getFlatViewColumns() {
         return [
             {
-                width: 250,
+                width: 500,
                 header: ''
             },
             {
@@ -174,7 +176,9 @@ namespace PerfMonitor {
             if (node !== tree && flatList.indexOf(node) == -1) {
                 flatList.push(node);
             }
-            node.children.forEach(appendItems);
+            if (node.depth <= 16) {
+                node.children.forEach(child => appendItems(child));
+            }
         }
         appendItems(tree);
         flatList.sort((a, b) => b.averageTime - a.averageTime);
@@ -192,7 +196,7 @@ namespace PerfMonitor {
     function getTreeViewColumns() {
         return [
             {
-                width: 250,
+                width: 500,
                 header: ''
             },
             {
@@ -217,10 +221,8 @@ namespace PerfMonitor {
     function getTreeViewItems() {
         function appendItems(node: ProfileTreeNode) {
             visibleNodes.push(node);
-            if (node.expanded) {
-                for (var i = 0; i < node.children.length; i++) {
-                    appendItems(node.children[i]);
-                }
+            if (node.expanded && node.depth <= 16) {
+                node.children.forEach(child => appendItems(child));
             }
         }
 
@@ -299,34 +301,36 @@ namespace PerfMonitor {
                 return n.parents.length === 0;
             })
         };
-    
+
         function setDepth(node: ProfileTreeNode, depth: number) {
+            if (node.depth !== 0)
+                return;
+
             node.depth = depth;
             for (const child of node.children) {
                 setDepth(child, depth + 1);
             }
         }
         setDepth(root, 0);
-    
-        function removeZeroCalls(node: ProfileTreeNode) {
-            node.children = node.children.filter(node => node.callCount !== 0);
-            node.children.forEach(removeZeroCalls);
-        }
-        removeZeroCalls(root);
-    
+
         for (var i = 0; i < root.children.length; i++) {
             var child = root.children[i];
             if (isFinite(child.averageTime)) {
                 root.averageTime += child.averageTime;
             }
         }
-    
-        function calcInclusive(node: ProfileTreeNode) {
-            node.inclusive = node.averageTime / root.averageTime;
-            node.children.forEach(calcInclusive);
-            node.children.sort((a, b) => b.averageTime - a.averageTime);
+
+        function removeZeroCalls(node: ProfileTreeNode) {
+            node.children = node.children.filter(node => node.callCount !== 0);
+            node.children.forEach(removeZeroCalls);
         }
-        calcInclusive(root);
+        removeZeroCalls(root);
+
+        // Calculate inclusive
+        nodes.forEach(node => {
+            node.inclusive = node.averageTime / root.averageTime;
+            node.children.sort((a, b) => b.averageTime - a.averageTime);
+        });
     
         return root;
     }
@@ -367,8 +371,6 @@ namespace PerfMonitor {
         if (w) {
             w.bringToFront();
         } else {
-            profiler.reset();
-            profiler.start();
             openPerfMonitor();
         }
     }
