@@ -139,8 +139,6 @@ namespace EntityViewer {
                         ["", ""],
                         sep('VehicleObject'),
                         ["Rotation frame mask:", vehicleObject.rotationFrameMask.toString()],
-                        ["Num. of vertical frames:", vehicleObject.numVerticalFrames.toString()],
-                        ["Num. of horizontal frames:", vehicleObject.numHorizontalFrames.toString()],
                         ["Spacing:", vehicleObject.spacing.toString()],
                         ["Car mass:", vehicleObject.carMass.toString()],
                         ["Tab height:", vehicleObject.tabHeight.toString()],
