@@ -120,7 +120,7 @@ namespace EntityViewer {
                         ["Mass:", car.mass.toString()],
                         ["Acceleration:", car.acceleration.toString()],
                         ["Banking rotation:", car.bankRotation.toString()],
-                        ["Colours", `body: ${car.colours.body}, trim: ${car.colours.trim}, ternary: ${car.colours.ternary}`],
+                        ["Colours", `body: ${car.colours.body}, trim: ${car.colours.trim}, tertiary: ${car.colours.tertiary}`],
                         ["Powered acceleration:", car.poweredAcceleration.toString()],
                         ["Powered max. speed:", car.poweredMaxSpeed.toString()],
                         ["Status:", car.status.toString()],
