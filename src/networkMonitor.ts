@@ -38,7 +38,7 @@ namespace NetworkMonitor {
 
             var x = padding;
             var y = heightTab + padding;
-            var widgets: Widget[] = [];
+            var widgets: WidgetDesc[] = [];
             createGraphTextWidgets(widgets, x, y, StatKind.receive);
             y += textHeight + padding;
             createGraphWidget(widgets, x, y, graphWidth, graphHeight, StatKind.receive, 'graphReceived');
@@ -180,7 +180,7 @@ namespace NetworkMonitor {
             }
         }
 
-        function createLabel(name: string, x: number, y: number, text: string): LabelWidget {
+        function createLabel(name: string, x: number, y: number, text: string): LabelDesc {
             return {
                 type: 'label',
                 name: name,
@@ -192,7 +192,7 @@ namespace NetworkMonitor {
             };
         }
 
-        function createLegendColourWidget(name: string, x: number, y: number, w: number, h: number, colour: number): CustomWidget {
+        function createLegendColourWidget(name: string, x: number, y: number, w: number, h: number, colour: number): CustomDesc {
             return {
                 type: 'custom',
                 name: name,
@@ -207,7 +207,7 @@ namespace NetworkMonitor {
             };
         }
 
-        function createGraphTextWidgets(widgets: Widget[], x: number, y: number, kind: StatKind) {
+        function createGraphTextWidgets(widgets: WidgetDesc[], x: number, y: number, kind: StatKind) {
             if (kind === StatKind.receive) {
                 widgets.push(createLabel('lblReceive', x, y, "Receive"));
                 widgets.push(createLabel('lblReceivedBytes', x + 70, y, "0.000 B/sec"));
@@ -221,7 +221,7 @@ namespace NetworkMonitor {
             }
         }
 
-        function createGraphWidget(widgets: Widget[], x: number, y: number, w: number, h: number, kind: StatKind, name: string) {
+        function createGraphWidget(widgets: WidgetDesc[], x: number, y: number, w: number, h: number, kind: StatKind, name: string) {
             widgets.push({
                 type: 'custom',
                 name: name,
@@ -238,7 +238,7 @@ namespace NetworkMonitor {
             });
         }
 
-        function createLegendWidgets(widgets: Widget[], x: number, y: number) {
+        function createLegendWidgets(widgets: WidgetDesc[], x: number, y: number) {
             for (var n = 0; n < categoryGroups.length; n++) {
                 var cg = categoryGroups[n];
 
