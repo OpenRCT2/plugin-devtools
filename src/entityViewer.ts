@@ -96,7 +96,7 @@ namespace EntityViewer {
 
             let data: ListViewItem[] = [
                 sep('Entity'),
-                ["Id:", entity.id.toString()],
+                ["Id:", entity.id?.toString() ?? "null"],
                 ["Type:", entity.type.toString()],
                 ["Position:", `${entity.x}, ${entity.y}, ${entity.z}`]
             ];
@@ -113,14 +113,14 @@ namespace EntityViewer {
                         ["Sprite type", car.spriteType.toString()],
                         ["Num. of seats", car.numSeats.toString()],
                         ["Next car on train", car.nextCarOnTrain?.toString() ?? "null"],
-                        ["Next car on ride", car.nextCarOnRide.toString()],
-                        ["Previous car on ride", car.previousCarOnRide.toString()],
+                        ["Next car on ride", car.nextCarOnRide?.toString() ?? "null"],
+                        ["Previous car on ride", car.previousCarOnRide?.toString() ?? "null"],
                         ["Current station", car.currentStation.toString()],
                         ["", ""],
                         ["Mass:", car.mass.toString()],
                         ["Acceleration:", car.acceleration.toString()],
                         ["Banking rotation:", car.bankRotation.toString()],
-                        ["Colours", `body: ${car.colours.body}, trim: ${car.colours.trim}, ternary: ${car.colours.ternary}`],
+                        ["Colours", `body: ${car.colours.body}, trim: ${car.colours.trim}, tertiary: ${car.colours.tertiary}`],
                         ["Powered acceleration:", car.poweredAcceleration.toString()],
                         ["Powered max. speed:", car.poweredMaxSpeed.toString()],
                         ["Status:", car.status.toString()],
@@ -139,8 +139,6 @@ namespace EntityViewer {
                         ["", ""],
                         sep('VehicleObject'),
                         ["Rotation frame mask:", vehicleObject.rotationFrameMask.toString()],
-                        ["Num. of vertical frames:", vehicleObject.numVerticalFrames.toString()],
-                        ["Num. of horizontal frames:", vehicleObject.numHorizontalFrames.toString()],
                         ["Spacing:", vehicleObject.spacing.toString()],
                         ["Car mass:", vehicleObject.carMass.toString()],
                         ["Tab height:", vehicleObject.tabHeight.toString()],

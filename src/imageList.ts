@@ -26,7 +26,7 @@ namespace ImageList {
         let secondaryChecked = false;
         let primaryColour = 4;
         let secondaryColour = 18;
-        let ternaryColour = 30;
+        let tertiaryColour = 30;
 
         const width = ui.width - 64;
         const height = ui.height - 96;
@@ -47,7 +47,7 @@ namespace ImageList {
                 { type: 'checkbox', name: 'chkPrimary', x: 32, y: 28, width: 100, height: 14, isChecked: true, text: 'Primary' },
                 { type: 'colourpicker', name: 'clrSecondary', onChange: c => onSecondaryColourChange(c), x: 16, y: 42, width: 12, height: 12 },
                 { type: 'checkbox', name: 'chkSecondary', x: 32, y: 42, width: 100, height: 14, isChecked: true, text: 'Secondary' },
-                { type: 'colourpicker', name: 'clrTernary', onChange: c => onTernaryColourChange(c), x: 16, y: 56, width: 12, height: 12 },
+                { type: 'colourpicker', name: 'clrTertiary', onChange: c => onTertiaryColourChange(c), x: 16, y: 56, width: 12, height: 12 },
                 { type: 'checkbox', x: 32, y: 56, width: 100, height: 14, text: 'Blend' },
                 { type: 'label', x: 16, y: 74, width: 50, height: 14, text: 'Palette:' },
                 { type: 'spinner', name: 'spnPalette', x: 68, y: 72, width: 100, height: 14, text: '0', onDecrement: () => onDecrementPalette(), onIncrement: () => onIncrementPalette() },
@@ -79,8 +79,8 @@ namespace ImageList {
             secondaryColour = c;
         }
 
-        function onTernaryColourChange(c: number) {
-            ternaryColour = c;
+        function onTertiaryColourChange(c: number) {
+            tertiaryColour = c;
         }
 
         function onDecrementPalette() {
@@ -152,9 +152,9 @@ namespace ImageList {
                 secondaryColourWidget.colour = secondaryColour;
             }
 
-            const ternaryColourWidget = window.findWidget<ColourPickerWidget>('clrTernary');
-            if (ternaryColourWidget) {
-                ternaryColourWidget.colour = ternaryColour;
+            const tertiaryColourWidget = window.findWidget<ColourPickerWidget>('clrTertiary');
+            if (tertiaryColourWidget) {
+                tertiaryColourWidget.colour = tertiaryColour;
             }
 
             const paletteSpinner = window.findWidget<SpinnerWidget>('spnPalette');
@@ -289,7 +289,7 @@ namespace ImageList {
             g.colour = primaryChecked && secondaryChecked ? primaryColour : undefined;
             g.secondaryColour = secondaryChecked ? secondaryColour : undefined;
             g.paletteId = primaryChecked && !secondaryChecked ? primaryColour : undefined;
-            g.ternaryColour = ternaryColour;
+            g.tertiaryColour = tertiaryColour;
             g.image(img.id, x - img.offset.x + 1, y - img.offset.y + 1);
 
             output.width = Math.max(textWidth + 4, img.width + 6);
