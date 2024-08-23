@@ -132,7 +132,7 @@ namespace EntityViewer {
                     ]);
 
 
-                    const rideObject = context.getObject("ride", car.rideObject);
+                    const rideObject = objectManager.getObject("ride", car.rideObject);
                     const vehicleObject = rideObject.vehicles[car.vehicleObject];
 
                     data = data.concat([
