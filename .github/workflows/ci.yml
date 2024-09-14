@@ -4,9 +4,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Setup node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v4
     - name: Install modules
       run: |
           mv node_modules/@types .
@@ -17,7 +17,7 @@ jobs:
     - name: Minify
       run: npm run minify
     - name: Upload artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: "OpenRCT2 DevTools"
         path: out/devtools.min.js
