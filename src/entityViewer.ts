@@ -92,7 +92,7 @@ namespace EntityViewer {
                 return;
             }
 
-            const sep = (text: string) => <ListViewItemSeperator>{ type: 'seperator', text };
+            const sep = (text: string) => <ListViewItemSeparator>{ type: 'separator', text };
 
             let data: ListViewItem[] = [
                 sep('Entity'),
