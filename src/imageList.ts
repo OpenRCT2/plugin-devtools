@@ -19,14 +19,14 @@ namespace ImageList {
     }
 
     function open() {
-        let startId = 14222;
+        let startId = 0;
         let nextId = 0;
         let showImageBorders = false;
         let primaryChecked = false;
         let secondaryChecked = false;
-        let primaryColour = 4;
-        let secondaryColour = 18;
-        let tertiaryColour = 30;
+        let primaryColour = 7;
+        let secondaryColour = 30;
+        let tertiaryColour = 18;
 
         const width = ui.width - 64;
         const height = ui.height - 96;
